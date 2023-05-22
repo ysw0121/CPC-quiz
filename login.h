@@ -20,6 +20,8 @@ private slots:
 
     void on_log_clicked();
 
+    void on_showpsw_clicked(bool checked);
+
 private:
     Ui::login *ui;
 };

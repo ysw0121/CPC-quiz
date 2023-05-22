@@ -1,7 +1,7 @@
 #include "rank.h"
 #include "ui_rank.h"
 #include"model_choose.h"
-#include"usr_info.cpp"
+#include"usr_info.h"
 #include<QString>
 #include<QList>
 

@@ -5,7 +5,7 @@
 #include<QMessageBox>
 #include<QLineEdit>
 #include<QString>
-#include"usr_info.cpp"
+#include"usr_info.h"
 #include<QFile>
 #include<QDebug>
 #include<QTextStream>
@@ -115,6 +115,10 @@ void Register::on_password_textEdited(const QString &arg1)
         ui->pwarning->setText("密码不能为空！");
         ui->pwarning->setStyleSheet("color: rgb(255, 78, 25);");
     }
+    else if(ui->password->text().size()<8){
+        ui->pwarning->setText("密码不能少于8位！");
+        ui->pwarning->setStyleSheet("color: rgb(255, 78, 25);");
+    }
     else if(ui->password->text().size()>20){
         ui->pwarning->setText("密码不能为过长！");
         ui->pwarning->setStyleSheet("color: rgb(255, 78, 25);");
@@ -124,18 +128,8 @@ void Register::on_password_textEdited(const QString &arg1)
         ui->pwarning->setStyleSheet("color: rgb(255, 78, 25);");
     }
     else{
-        int fla=1;
-        for(int i=0;i<usrlist.size();i++){
-            if(usrlist[i].password==ui->password->text()){
-                ui->pwarning->setText("密码不能与别人重复！");
-                ui->pwarning->setStyleSheet("color: rgb(255, 78, 25);");
-                fla=0;
-            }
-        }
-        if(fla==1){
             ui->pwarning->setText("密码格式正确！");
             ui->pwarning->setStyleSheet("color: rgb(0,255, 25);");
-        }
     }
 
 

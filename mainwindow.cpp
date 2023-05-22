@@ -2,7 +2,10 @@
 #include "ui_mainwindow.h"
 #include"login.h"
 #include<register.h>
+#include<QTimer>
 
+
+extern QTimer*tim;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -14,6 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    if (tim){
+            if (tim->isActive() == true){
+                tim->stop();
+            }
+            delete tim;
+            tim= nullptr;
+        }
+
     delete ui;
 }
 

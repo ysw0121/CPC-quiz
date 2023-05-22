@@ -16,8 +16,7 @@ SOURCES += \
     mainwindow.cpp \
     model_choose.cpp \
     rank.cpp \
-    register.cpp \
-    usr_info.cpp
+    register.cpp
 
 HEADERS += \
     exercise.h \

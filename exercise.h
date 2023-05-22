@@ -18,6 +18,8 @@ public:
 private slots:
     void on_return_2_clicked();
 
+    void on_certain_clicked();
+
 private:
     Ui::Exercise *ui;
 };

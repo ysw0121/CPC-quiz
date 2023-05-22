@@ -145,6 +145,27 @@
     <string>密码</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="showpsw">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>240</y>
+     <width>81</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>显示密码</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

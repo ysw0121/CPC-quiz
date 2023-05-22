@@ -4,8 +4,9 @@
 #include<QTextStream>
 #include<QFile>
 #include<QList>
-#include"usr_info.cpp"
+#include"usr_info.h"
 #include <QApplication>
+#include<QTimer>
 
 QList<user>usrlist;
 
@@ -14,7 +15,6 @@ QList<question>questionlist;
 QList<user>Ranklist;
 
 extern user succeed;
-
 
 
 int main(int argc, char *argv[])
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
                   que.option=s2;
                   int pos=ls[1].indexOf("A")+ls[1].indexOf("B")+ls[1].indexOf("C")+2;
                   que.answer=ls[1][pos];
-                  que.quest=ls[1].replace(pos-1,pos,"__");
+                  que.quest=ls[1].replace(pos,pos,"__");
                   questionlist<<que;
               }
               while(!in.atEnd()){
@@ -110,5 +110,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    return a.exec();
+    a.exec();
+    return 0;
 }

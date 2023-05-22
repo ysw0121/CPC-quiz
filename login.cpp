@@ -2,7 +2,7 @@
 #include "ui_login.h"
 #include"mainwindow.h"
 #include"model_choose.h"
-#include"usr_info.cpp"
+#include"usr_info.h"
 #include<QList>
 #include<QMessageBox>
 
@@ -51,5 +51,14 @@ void login::on_log_clicked()
         return;
     }
 
+}
+
+
+void login::on_showpsw_clicked(bool checked)
+{
+    if(checked){
+         ui->password->setEchoMode(QLineEdit:: Normal);
+    }
+    else ui->password->setEchoMode(QLineEdit:: Password);
 }
 

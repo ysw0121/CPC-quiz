@@ -149,12 +149,38 @@
     <pixmap resource="Resource.qrc">:/780.jpg</pixmap>
    </property>
   </widget>
+  <widget class="QLabel" name="remain">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>201</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 161, 53);
+background-color: rgb(231, 231, 231);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>return_2</zorder>
   <zorder>formal</zorder>
   <zorder>simulate</zorder>
   <zorder>exercise</zorder>
   <zorder>rankView</zorder>
+  <zorder>remain</zorder>
  </widget>
  <resources>
   <include location="Resource.qrc"/>

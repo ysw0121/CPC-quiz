@@ -18,6 +18,10 @@ public:
 private slots:
     void on_return_2_clicked();
 
+    void Delay_MSec(unsigned int msec);
+
+    void countdown();
+
 private:
     Ui::FormalQuiz *ui;
 };
