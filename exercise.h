@@ -15,6 +15,9 @@ public:
     explicit Exercise(QWidget *parent = nullptr);
     ~Exercise();
 
+private slots:
+    void on_return_2_clicked();
+
 private:
     Ui::Exercise *ui;
 };

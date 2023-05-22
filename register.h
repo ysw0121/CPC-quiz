@@ -18,6 +18,14 @@ public:
 private slots:
     void on_return_2_clicked();
 
+    void on_certain_clicked();
+
+    void on_name_textEdited(const QString &arg1);
+
+    void on_password_textEdited(const QString &arg1);
+
+    void on_showpsw_clicked(bool checked);
+
 private:
     Ui::Register *ui;
 };

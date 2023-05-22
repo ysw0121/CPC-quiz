@@ -10,25 +10,32 @@ CONFIG += c++11
 
 SOURCES += \
     exercise.cpp \
+    formalquiz.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
     model_choose.cpp \
-    register.cpp
+    rank.cpp \
+    register.cpp \
+    usr_info.cpp
 
 HEADERS += \
     exercise.h \
+    formalquiz.h \
     login.h \
     mainwindow.h \
     model_choose.h \
+    rank.h \
     register.h \
     usr_info.h
 
 FORMS += \
     exercise.ui \
+    formalquiz.ui \
     login.ui \
     mainwindow.ui \
     model_choose.ui \
+    rank.ui \
     register.ui
 
 # Default rules for deployment.

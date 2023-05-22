@@ -15,6 +15,17 @@ public:
     explicit Model_Choose(QWidget *parent = nullptr);
     ~Model_Choose();
 
+private slots:
+    void on_return_2_clicked();
+
+    void on_formal_clicked();
+
+    void on_simulate_clicked();
+
+    void on_exercise_clicked();
+
+    void on_rankView_clicked();
+
 private:
     Ui::Model_Choose *ui;
 };

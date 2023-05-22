@@ -100,7 +100,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 102, 41);
-background-color: rgb(200, 200, 200);</string>
+background-color: rgb(255, 255, 0);</string>
     </property>
     <property name="text">
      <string> 欢迎来到党史知识竞赛！</string>
