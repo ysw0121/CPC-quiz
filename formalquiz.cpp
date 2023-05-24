@@ -16,12 +16,13 @@
 
 
 extern int mode;
- QTimer*tim;
+
+QTimer*tim;
 bool start=false;
-int minute=20;
+//int minute=20;
 int second;
 int msecond;
-const int num_of_ex=20;
+const int num_of_ex=5;
 
 
 FormalQuiz::FormalQuiz(QWidget *parent) :
@@ -32,46 +33,36 @@ FormalQuiz::FormalQuiz(QWidget *parent) :
     this->setWindowTitle("正式测试");
     qDebug()<<mode;
 
-   tim=new QTimer(this);
+    time.setHMS(0,0,30,800);
+    tim=new QTimer(this);
     ui->CountDown->setSegmentStyle(QLCDNumber::Flat);
     ui->CountDown->setDigitCount(10);
     ui->CountDown->setMode(QLCDNumber::Dec);
-    ui->CountDown->display("20:00:000");
+    ui->CountDown->display("30:000");
     connect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
-    tim->start(1000);
+
+    tim->start(1);
 
 }
 
 FormalQuiz::~FormalQuiz()
 {
-    tim->stop();
-    disconnect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
-     disconnect(this,&FormalQuiz::Delay_MSec,this,&FormalQuiz::countdown);
-    delete tim;
-    if (tim){
-            if (tim->isActive() == true){
-                tim->stop();
-            }
-            delete tim;
-            tim= nullptr;
-        }
-    setAttribute(Qt::WA_DeleteOnClose);
+//    tim->stop();
+//    disconnect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
+//     disconnect(this,&FormalQuiz::Delay_MSec,this,&FormalQuiz::countdown);
+
     delete ui;
 }
 
-void FormalQuiz::countdown(){
-    for(minute=19;minute>=0;minute--){
-        if(minute<=2)ui->CountDown->setStyleSheet("QLCDNumber{color:rgb(255, 78, 25);}");
-        for(second=59;second>=0;second--){
-            for(msecond=999;msecond>=0;msecond--){
-                 ui->CountDown->display(QDateTime::currentDateTime().toString(QString::number(minute).sprintf("%02d",minute)
-                                                                              +":"+ QString::number(second).sprintf("%02d",second)+":"+QString::number(msecond).sprintf("%03d",msecond)));
-                 Delay_MSec(1);
-            }
-        }
-    }
-    tim->stop();
-    return;
+void FormalQuiz::countdown(){ 
+
+           time=time.addMSecs(-1);
+           if(time.second()<=10)ui->CountDown->setStyleSheet("QLCDNumber{color:rgb(255, 78, 25);}");
+           ui->CountDown->display(time.toString("ss:zzz"));
+           if(time.second()==0&&time.msec()==0){
+               tim->stop();
+           }
+
 }
 
 void FormalQuiz::on_return_2_clicked()
@@ -85,10 +76,4 @@ void FormalQuiz::on_return_2_clicked()
     pic->show();
 }
 
-void FormalQuiz::Delay_MSec(unsigned int msec){//毫秒
-    QTime _Timer = QTime::currentTime().addMSecs(msec);
-    while(QTime::currentTime() < _Timer){
-        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
-    }
 
-}

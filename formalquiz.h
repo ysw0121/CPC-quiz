@@ -2,6 +2,8 @@
 #define FORMALQUIZ_H
 
 #include <QDialog>
+#include<QTime>
+#include<QTimer>
 
 namespace Ui {
 class FormalQuiz;
@@ -15,10 +17,13 @@ public:
     explicit FormalQuiz(QWidget *parent = nullptr);
     ~FormalQuiz();
 
+   // QTimer *tim;
+    QTime time;
+
+
 private slots:
     void on_return_2_clicked();
 
-    void Delay_MSec(unsigned int msec);
 
     void countdown();
 

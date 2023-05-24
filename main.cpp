@@ -85,7 +85,9 @@ int main(int argc, char *argv[])
                   que.option=s2;
                   int pos=ls[1].indexOf("A")+ls[1].indexOf("B")+ls[1].indexOf("C")+2;
                   que.answer=ls[1][pos];
-                  que.quest=ls[1].replace(pos,pos,"__");
+                  que.quest=ls[1].replace("A","__");
+                  que.quest=ls[1].replace("B","__");
+                  que.quest=ls[1].replace("C","__");
                   questionlist<<que;
               }
               while(!in.atEnd()){
@@ -98,7 +100,9 @@ int main(int argc, char *argv[])
                       que.option=s2;
                       int pos=ls[1].indexOf("A")+ls[1].indexOf("B")+ls[1].indexOf("C")+2;
                       que.answer=ls[1][pos];
-                      que.quest=ls[1].replace(pos-1,pos,"__");
+                      que.quest=ls[1].replace("A","__");
+                      que.quest=ls[1].replace("B","__");
+                      que.quest=ls[1].replace("C","__");
                       questionlist<<que;
                   }
               }

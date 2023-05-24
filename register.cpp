@@ -58,7 +58,7 @@ void Register::on_certain_clicked()
                   if(file1.open(QIODevice::WriteOnly|QIODevice::Append)){
                       QTextStream out(&file1);
                       out.setCodec("UTF-8");
-                      out<<QString(nme)<<" "<<QString(psw)<<" 0 0 21.0"<<endl;
+                      out<<QString(nme)<<" "<<QString(psw)<<" 0 0 31.0"<<endl;
                       file1.close();
                   }else{
                       qDebug()<<file1.errorString()<<endl;
