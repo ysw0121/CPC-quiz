@@ -1,30 +1,38 @@
 #include "formalquiz.h"
 #include "ui_formalquiz.h"
 #include"model_choose.h"
+#include"usr_info.h"
 #include<QDebug>
 #include <QTimer>
 #include <QDateTime>
 #include<QTime>
-#include"usr_info.h"
 #include <QString>
 #include <QApplication>
 #include <QCoreApplication>
+#include<QRandomGenerator>
 #include <QEventLoop>
 #include <QProcess>
 #include<QMessageBox>
+#include<QChar>
+#include<QButtonGroup>
 
 
 
+extern QList<question>questionlist;
+QList<question>exam;
+
+extern QButtonGroup*box;
 extern int mode;// 2为模拟
 extern user succeed;
 const int num_of_ex=5;
 int score=0;
+QList<QChar>ansSheet;
 
 QTimer*tim;
 bool start=false;
 int second;
 int msecond;
-
+int num=0;
 
 
 FormalQuiz::FormalQuiz(QWidget *parent) :
@@ -32,37 +40,30 @@ FormalQuiz::FormalQuiz(QWidget *parent) :
     ui(new Ui::FormalQuiz)
 {
 
-    if(mode==1){
-    if(succeed.times!=3){
-        QMessageBox msgBox;
-            msgBox.setWindowTitle("提示");
-            msgBox.setText("您的次数还剩余"+QString::number(3-succeed.times)+"次");
-            msgBox.setText("您进行正式测试将少一次机会，是否消耗一次？\n");
-            msgBox.setStandardButtons(QMessageBox::Ok| QMessageBox::No );
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            int ret = msgBox.exec();
-            switch(ret){
-            case QMessageBox::Ok:
-                break;
-            case QMessageBox::No:{
-                 this->close();
-                Model_Choose*pic=new Model_Choose();
-                pic->show();
-               }
-            }
-        }
-    else if(succeed.times==3){
-        QMessageBox::critical(this,tr("警告"),tr("您已用完次数，不可再参加正式竞赛"));
-        this->close();
-       Model_Choose*pic=new Model_Choose();
-       pic->show();
-    }
-    }
-
-
     ui->setupUi(this);
     this->setWindowTitle("正式测试");
     qDebug()<<mode;
+
+    QMessageBox::information(this,tr(""),tr("您有30秒时间，需要回答5道题目。\n答题形式同练习，您只能答完该题再进行下一道。\n时间到或者题目答完后系统自动交卷。\n准备好点击开始，进入后直接开始！"));
+
+    for(int i=0;i<=questionlist.size()-questionlist.size()/num_of_ex;i+=questionlist.size()/num_of_ex){
+        int j=QRandomGenerator::global()->bounded(i,i+questionlist.size()/num_of_ex-1);
+        exam<<questionlist[j];
+    }
+    for(int i=0;i<exam.size();i++)qDebug()<<exam[i].quest;
+    qDebug()<<exam.size();
+
+    ui->A->setChecked(false);
+    ui->B->setChecked(false);
+    ui->C->setChecked(false);
+    box=new QButtonGroup;
+    box->setExclusive(true);
+    box->addButton(ui->A);
+    box->addButton(ui->B);
+    box->addButton(ui->C);
+
+    QString qs=exam[0].quest+"\n\n"+exam[0].option;
+    ui->paper->setText(qs);
 
     time.setHMS(0,0,30,800);
     tim=new QTimer(this);
@@ -78,10 +79,9 @@ FormalQuiz::FormalQuiz(QWidget *parent) :
 
 FormalQuiz::~FormalQuiz()
 {
-//    tim->stop();
-//    disconnect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
-//     disconnect(this,&FormalQuiz::Delay_MSec,this,&FormalQuiz::countdown);
-
+    tim->stop();
+    disconnect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
+    delete tim;
     delete ui;
 }
 
@@ -90,21 +90,111 @@ void FormalQuiz::countdown(){
            time=time.addMSecs(-1);
            if(time.second()<=10)ui->CountDown->setStyleSheet("QLCDNumber{color:rgb(255, 78, 25);}");
            ui->CountDown->display(time.toString("ss:zzz"));
+
            if(time.second()==0&&time.msec()==0){
                tim->stop();
+               QMessageBox::information(this,tr("考试结束"),tr("时间到，停止答题"));
+               if(mode==2){
+                   QString reci;
+                   for(int i=0;i<ansSheet.size();i++){
+                       if(ansSheet[i]==exam[i].answer)score++;
+                       else{
+                           reci+="您答错了："+exam[i].quest+"\n"+exam[i].option+"\n"+"您的答案是："+QString(ansSheet[i])+"   正确答案是："+QString(exam[i].answer)+"\n";
+                       }
+                   }
+                   for(int i=ansSheet.size();i<exam.size();i++){
+                       reci+="您未作答："+exam[i].quest+"\n"+exam[i].option+"\n"+"正确答案是："+QString(exam[i].answer)+"\n";
+                   }
+                   reci+="您的成绩：答对"+QString::number(score)+"题\n";
+                   reci+="用时："+QString::number(30.000)+"秒";
+                   QMessageBox::information(this,tr("考试结果"),reci);
+               }
+
+               if(mode==1){
+                   QString reci;
+                   for(int i=0;i<ansSheet.size();i++){
+                       if(ansSheet[i]==exam[i].answer)score++;
+                   }
+                   reci+="您的成绩：答对"+QString::number(score)+"题\n";
+                   reci+="用时："+QString::number(30.000)+"秒";
+                   QMessageBox::information(this,tr("考试结果"),reci);
+               }
+
+               this->close();
+               delete tim;
+               Model_Choose*pic=new Model_Choose();
+               pic->show();
+               return;
            }
 
 }
 
-void FormalQuiz::on_return_2_clicked()
+
+
+void FormalQuiz::on_next_clicked()
 {
-    tim->stop();
-    disconnect(tim,&QTimer::timeout,this,&FormalQuiz::countdown);
-    delete tim;
+    QChar ans;
+    if(!ui->A->isChecked()&&!ui->B->isChecked()&&!ui->C->isChecked()){
+        QMessageBox::critical(this,tr("提示"),tr("您需要选出选项再进行下一题"));
+       return;
+    }
+    if(ui->A->isChecked())ans='A';
+    if(ui->B->isChecked())ans='B';
+    if(ui->C->isChecked())ans='C';
+    ansSheet<<ans;
+    num++;
+    ans=0;
 
-    this->close();
-    Model_Choose *pic=new Model_Choose();
-    pic->show();
+    if(time.second()!=0){
+
+
+         if(num==num_of_ex){
+
+             tim->stop();
+             QMessageBox::information(this,tr("考试结束"),tr("您已答完全部题目"));
+
+             if(mode==2){
+                 QString reci;
+                 for(int i=0;i<ansSheet.size();i++){
+                     if(ansSheet[i]==exam[i].answer)score++;
+                     else{
+                         reci+="您答错了："+exam[i].quest+"\n"+exam[i].option+"\n"+"您的答案是："+QString(ansSheet[i])+"   正确答案是："+QString(exam[i].answer)+"\n";
+                     }
+                 }
+
+                 reci+="您的成绩：答对"+QString::number(score)+"题\n";
+                 reci+="用时："+QString::number(30.000-time.second()-(double)time.msec()/1000)+"秒";
+                 QMessageBox::information(this,tr("考试结果"),reci);
+             }
+
+             if(mode==1){
+                 QString reci;
+                 for(int i=0;i<ansSheet.size();i++){
+                     if(ansSheet[i]==exam[i].answer)score++;
+                 }
+                 reci+="您的成绩：答对"+QString::number(score)+"题\n";
+                 reci+="用时："+QString::number(30.000-time.second()-(double)time.msec()/1000)+"秒";
+                 QMessageBox::information(this,tr("考试结果"),reci);
+             }
+
+
+             this->close();
+             delete tim;
+             Model_Choose*pic=new Model_Choose();
+             pic->show();
+             return;
+
+         }
+
+
+         else  if(num<num_of_ex){
+             QString qs=exam[num].quest+"\n\n"+exam[num].option;
+             ui->paper->setText(qs);
+             ui->A->setChecked(false);
+             ui->B->setChecked(false);
+             ui->C->setChecked(false);
+         }
+
+    }
 }
-
 

@@ -63,7 +63,12 @@ void Exercise::on_return_2_clicked()
 
 void Exercise::on_certain_clicked()
 {
+
     QChar ans;
+    if(!ui->A->isChecked()&&!ui->B->isChecked()&&!ui->C->isChecked()){
+        QMessageBox::critical(this,tr("警告"),tr("您需要选出选项再进行下一题"));
+       return;
+    }
     if(ui->A->isChecked())ans='A';
     if(ui->B->isChecked())ans='B';
     if(ui->C->isChecked())ans='C';

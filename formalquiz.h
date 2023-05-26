@@ -22,10 +22,10 @@ public:
 
 
 private slots:
-    void on_return_2_clicked();
-
 
     void countdown();
+
+    void on_next_clicked();
 
 private:
     Ui::FormalQuiz *ui;

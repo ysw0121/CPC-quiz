@@ -19,6 +19,7 @@ Model_Choose::Model_Choose(QWidget *parent) :
     ui(new Ui::Model_Choose)
 {
     ui->setupUi(this);
+    if(succeed.times==3)ui->remain->setStyleSheet("color:rgb(255, 78, 25)");
     ui->remain->setText("您的正式竞赛剩余次数还有"+QString::number(3-succeed.times)+"次");
     this->setWindowTitle("欢迎你，"+succeed.name+"，请进行模式选择");
 }
@@ -39,9 +40,37 @@ void Model_Choose::on_return_2_clicked()
 void Model_Choose::on_formal_clicked()
 {
     mode=1;
-    this->close();
-    FormalQuiz *pic=new FormalQuiz();
-    pic->show();
+
+
+    if(succeed.times!=3){
+        QMessageBox msgBox;
+            msgBox.setWindowTitle("提示");
+            msgBox.setText("您的次数还剩余"+QString::number(3-succeed.times)+"次");
+            msgBox.setText("您进行正式测试将少一次机会，是否消耗一次？\n");
+            msgBox.setStandardButtons(QMessageBox::Ok| QMessageBox::No );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            switch(ret){
+            case QMessageBox::Ok:{
+                this->close();
+                FormalQuiz *pic=new FormalQuiz();
+                pic->show();
+                 break;
+            }
+
+            case QMessageBox::No:{
+              break;
+               }
+            }
+    }
+    else if(succeed.times==3){
+        QMessageBox::critical(this,tr("警告"),tr("您已用完次数，不可再参加正式竞赛"));
+       return;
+    }
+
+
+
+
 }
 
 
