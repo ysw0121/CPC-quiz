@@ -10,7 +10,7 @@
 
 
 extern user succeed;
-
+extern int exerflag;
 
 int mode;
 
@@ -57,6 +57,7 @@ void Model_Choose::on_simulate_clicked()
 void Model_Choose::on_exercise_clicked()
 {
     this->close();
+    exerflag=1;
     Exercise *pic=new Exercise();
     pic->show();
 }

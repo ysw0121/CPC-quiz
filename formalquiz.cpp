@@ -15,20 +15,51 @@
 
 
 
-extern int mode;
+extern int mode;// 2为模拟
+extern user succeed;
+const int num_of_ex=5;
+int score=0;
 
 QTimer*tim;
 bool start=false;
-//int minute=20;
 int second;
 int msecond;
-const int num_of_ex=5;
+
 
 
 FormalQuiz::FormalQuiz(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FormalQuiz)
 {
+
+    if(mode==1){
+    if(succeed.times!=3){
+        QMessageBox msgBox;
+            msgBox.setWindowTitle("提示");
+            msgBox.setText("您的次数还剩余"+QString::number(3-succeed.times)+"次");
+            msgBox.setText("您进行正式测试将少一次机会，是否消耗一次？\n");
+            msgBox.setStandardButtons(QMessageBox::Ok| QMessageBox::No );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            switch(ret){
+            case QMessageBox::Ok:
+                break;
+            case QMessageBox::No:{
+                 this->close();
+                Model_Choose*pic=new Model_Choose();
+                pic->show();
+               }
+            }
+        }
+    else if(succeed.times==3){
+        QMessageBox::critical(this,tr("警告"),tr("您已用完次数，不可再参加正式竞赛"));
+        this->close();
+       Model_Choose*pic=new Model_Choose();
+       pic->show();
+    }
+    }
+
+
     ui->setupUi(this);
     this->setWindowTitle("正式测试");
     qDebug()<<mode;

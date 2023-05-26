@@ -9,6 +9,7 @@
 #include<QChar>
 #include<QDebug>
 
+int exerflag;
 
 extern QList<question>questionlist;
 
@@ -21,6 +22,7 @@ Exercise::Exercise(QWidget *parent) :
     ui(new Ui::Exercise)
 {
 
+    if(exerflag==1){
     QMessageBox msgBox;
     msgBox.setWindowTitle("练习说明");
     msgBox.setText("练习时选择左下角选项，点击确定则提交答案，系统判定正误，如果错误则告知答案\n"
@@ -28,7 +30,7 @@ Exercise::Exercise(QWidget *parent) :
 
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
-
+}
     ui->setupUi(this);
     this->setWindowTitle("练习模式");
     ui->A->setChecked(false);
@@ -75,6 +77,7 @@ void Exercise::on_certain_clicked()
         switch(ret){
            case QMessageBox::Ok:{
             this->close();
+            exerflag=0;
             Exercise*pic=new Exercise();
             pic->show();
             break;
@@ -95,6 +98,7 @@ void Exercise::on_certain_clicked()
         switch(ret){
            case QMessageBox::Ok:{
             this->close();
+            exerflag=0;
             Exercise*pic=new Exercise();
             pic->show();
             break;

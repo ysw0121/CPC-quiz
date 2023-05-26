@@ -12,7 +12,7 @@ QList<user>usrlist;
 
 QList<question>questionlist;
 
-QList<user>Ranklist;
+//QList<user>Ranklist;
 
 extern user succeed;
 

@@ -34,14 +34,24 @@
     <string>返回</string>
    </property>
   </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="rankList">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>40</y>
-     <width>181</width>
-     <height>241</height>
+     <x>40</x>
+     <y>20</y>
+     <width>271</width>
+     <height>261</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
   </widget>
  </widget>
