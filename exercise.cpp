@@ -81,10 +81,15 @@ void Exercise::on_certain_clicked()
         int ret=msgBox.exec();
         switch(ret){
            case QMessageBox::Ok:{
-            this->close();
-            exerflag=0;
-            Exercise*pic=new Exercise();
-            pic->show();
+            int prnum=QRandomGenerator::global()->bounded(199);
+            temp=questionlist[prnum];
+            ui->textBrowser->setText("\n"+temp.quest+"\n\n\n"+temp.option);
+
+            box->setExclusive(false);
+             ui->A->setChecked(false);
+             ui->B->setChecked(false);
+             ui->C->setChecked(false);
+            box->setExclusive(true);
             break;
            }
            case QMessageBox::No:{
@@ -102,10 +107,16 @@ void Exercise::on_certain_clicked()
         int ret=msgBox.exec();
         switch(ret){
            case QMessageBox::Ok:{
-            this->close();
-            exerflag=0;
-            Exercise*pic=new Exercise();
-            pic->show();
+            int prnum=QRandomGenerator::global()->bounded(199);
+            temp=questionlist[prnum];
+            ui->textBrowser->setText("\n"+temp.quest+"\n\n\n"+temp.option);
+
+            box->setExclusive(false);
+             ui->A->setChecked(false);
+             ui->B->setChecked(false);
+             ui->C->setChecked(false);
+            box->setExclusive(true);
+
             break;
            }
            case QMessageBox::No:{

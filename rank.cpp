@@ -64,11 +64,13 @@ Rank::Rank(QWidget *parent) :
 
 Rank::~Rank()
 {
+    Ranklist.clear();
     delete ui;
 }
 
 void Rank::on_return_2_clicked()
 {
+    Ranklist.clear();
     this->close();
     Model_Choose *pic=new Model_Choose();
     pic->show();

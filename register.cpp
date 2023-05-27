@@ -52,13 +52,13 @@ void Register::on_certain_clicked()
         u.password=psw;
         u.correct=0;
         u.times=0;
-        u.time=21.0;
+        u.time=31.000;
         usrlist<<u;
         QFile file1("user.txt");
                   if(file1.open(QIODevice::WriteOnly|QIODevice::Append)){
                       QTextStream out(&file1);
                       out.setCodec("UTF-8");
-                      out<<QString(nme)<<" "<<QString(psw)<<" 0 0 31.0"<<endl;
+                      out<<QString(nme)<<" "<<QString(psw)<<" 0 0 31.000"<<endl;
                       file1.close();
                   }else{
                       qDebug()<<file1.errorString()<<endl;
