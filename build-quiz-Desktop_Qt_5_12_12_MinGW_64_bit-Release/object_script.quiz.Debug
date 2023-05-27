@@ -1,0 +1,16 @@
+debug/exercise.o
+debug/formalquiz.o
+debug/login.o
+debug/main.o
+debug/mainwindow.o
+debug/model_choose.o
+debug/rank.o
+debug/register.o
+debug/qrc_Resource.o
+debug/moc_exercise.o
+debug/moc_formalquiz.o
+debug/moc_login.o
+debug/moc_mainwindow.o
+debug/moc_model_choose.o
+debug/moc_rank.o
+debug/moc_register.o

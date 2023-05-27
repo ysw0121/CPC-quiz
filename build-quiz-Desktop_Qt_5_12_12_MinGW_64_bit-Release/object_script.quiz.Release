@@ -1,0 +1,16 @@
+release/exercise.o
+release/formalquiz.o
+release/login.o
+release/main.o
+release/mainwindow.o
+release/model_choose.o
+release/rank.o
+release/register.o
+release/qrc_Resource.o
+release/moc_exercise.o
+release/moc_formalquiz.o
+release/moc_login.o
+release/moc_mainwindow.o
+release/moc_model_choose.o
+release/moc_rank.o
+release/moc_register.o
