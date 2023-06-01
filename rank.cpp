@@ -42,7 +42,7 @@ Rank::Rank(QWidget *parent) :
     QListWidgetItem *item;
     item=new QListWidgetItem;
     QString qs;
-    qs="用户    答对的题目数       用时(秒)";
+    qs=" 用户    答对的题目数  用时(秒)";
     item->setText(QString(qs));
     item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
     item->setFlags(Qt::ItemIsEnabled);
@@ -52,7 +52,7 @@ Rank::Rank(QWidget *parent) :
         QListWidgetItem *item1;
         item1=new QListWidgetItem;
         QString qs1;
-        qs1=Ranklist[i].name+"\t"+QString::number(Ranklist[i].correct,10)+"         \t"+QString::number(Ranklist[i].time) ;
+        qs1=QString::number(i+1)+". "+Ranklist[i].name+"\t"+QString::number(Ranklist[i].correct,10)+"          \t"+QString::number(Ranklist[i].time) ;
         item1->setText(QString(qs1));
         item1->setFlags(item1->flags() & ~Qt::ItemIsSelectable);
         item1->setFlags(Qt::ItemIsEnabled);
